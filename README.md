@@ -27,3 +27,8 @@
 + requirements.txt: https://github.com/rwepa/streamlit-pdf2mp3/blob/main/requirements.txt
 
 + app.py: https://github.com/rwepa/streamlit-pdf2mp3/blob/main/app.py
+
+# Streamlit佈署：
+
+1. 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
+2. Create a new repository 視窗 \ Repository name 方格輸入專案名稱 \ 本例: streamlit-pdf2mp3 \ 按最下方的 [Create repository] 按鈕
