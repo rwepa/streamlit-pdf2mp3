@@ -30,5 +30,11 @@
 
 # Streamlit佈署：
 
-1. 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
-2. Create a new repository 視窗 \ Repository name 方格輸入專案名稱 \ 本例: streamlit-pdf2mp3 \ 按最下方的 [Create repository] 按鈕
+1. 新增 ＧitHub 專案檔案
+
++ 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
++ Create a new repository 視窗 \ Repository name 方格輸入專案名稱 \ 本例: streamlit-pdf2mp3 \ 按最下方的 [Create repository] 按鈕
++ 最上方 [Add file] \ Upload files \ 本例: 上傳 requirements.txt 與 app.py
+
+2. 佈署至 Streamlit
+
