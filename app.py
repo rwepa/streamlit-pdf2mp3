@@ -7,15 +7,15 @@
 # GitHub   : https://github.com/rwepa
 # Email    : alan9956@gmail.com
 
-# pip install streamlit pypdf edge-tts langdetect
+# pip install streamlit pypdf edge-tts langid
 # ai-generated: google antigravity
 
 import asyncio
 import os
 import re
 import tempfile
+import langid
 import streamlit as st
-from langdetect import detect
 from pypdf import PdfReader
 import edge_tts
 
@@ -48,8 +48,40 @@ VOICES = {
 }
 
 # -----------------------------------------------------------------------------
-# 3. 核心輔助函數 (文本切段與 TTS 生成)
+# 3. 核心輔助函數 (語言判定、文本切段與 TTS 生成)
 # -----------------------------------------------------------------------------
+def detect_language(text: str) -> str:
+    """
+    穩健的中英文語言偵測：
+    1. 計算 CJK (中文字元) 比例，避免 PDF 雜訊干擾
+    2. 使用 langid 進行語系分類
+    """
+    if not text.strip():
+        return "zh"
+
+    # 抽取前 2000 個字元作為採樣
+    sample_text = text[:2000]
+
+    # 正則分析：計算中文字符數 (包含常用中文與全形標點)
+    chinese_chars = re.findall(r'[\u4e00-\u9fff]', sample_text)
+    
+    # 若中文字數超過 10 個字，優先判定為中文
+    if len(chinese_chars) > 10:
+        return "zh"
+
+    # 使用 langid 模型做最終分類判斷
+    try:
+        lang, confidence = langid.classify(sample_text)
+        if lang.startswith("zh"):
+            return "zh"
+        elif lang == "en":
+            return "en"
+    except Exception:
+        pass
+
+    return "zh"  # 預設回到中文
+
+
 def split_text(text: str, max_chars: int = 800) -> list[str]:
     """將長篇文本依標點符號進行切段，避免超過 Edge-TTS 長度限制"""
     sentences = re.split(r'([。！？\n;;\?!])', text)
@@ -73,6 +105,7 @@ def split_text(text: str, max_chars: int = 800) -> list[str]:
 
     return chunks
 
+
 async def generate_audio_chunk(text: str, voice: str, rate_str: str) -> bytes:
     """單段文字轉語音，回傳 MP3 位元組"""
     communicate = edge_tts.Communicate(text, voice, rate=rate_str)
@@ -81,6 +114,7 @@ async def generate_audio_chunk(text: str, voice: str, rate_str: str) -> bytes:
         if chunk["type"] == "audio":
             audio_data += chunk["data"]
     return audio_data
+
 
 async def convert_text_to_mp3(text_chunks: list[str], voice: str, rate: float, progress_bar):
     """處理多段文字合成，並串接為完整 MP3"""
@@ -95,6 +129,7 @@ async def convert_text_to_mp3(text_chunks: list[str], voice: str, rate: float, p
         progress_bar.progress((idx + 1) / total_chunks)
 
     return combined_audio
+
 
 # -----------------------------------------------------------------------------
 # 4. Streamlit 主介面邏輯
@@ -115,14 +150,9 @@ if uploaded_file is not None:
         st.error("無法從此 PDF 中提取任何文字，可能是掃描版圖片或已加密。")
         st.stop()
 
-    # --- 功能 1 (續): 自動辨識語言 (中/英) ---
-    try:
-        detected_lang = detect(extracted_text[:1000])  # 取前1000字判斷
-        lang_key = "zh" if "zh" in detected_lang else "en"
-        lang_name = "中文 (Traditional/Simplified)" if lang_key == "zh" else "英文 (English)"
-    except Exception:
-        lang_key = "zh"
-        lang_name = "預設中文"
+    # --- 功能 1 (續): 改進版的自動辨識語言 (中/英) ---
+    lang_key = detect_language(extracted_text)
+    lang_name = "中文 (Traditional/Simplified)" if lang_key == "zh" else "英文 (English)"
 
     st.success(f"已成功擷取文字！自動偵測語言為：**{lang_name}**")
 
@@ -137,7 +167,7 @@ if uploaded_file is not None:
     )
     selected_voice_code = available_voices[selected_voice_name]
 
-    # --- 功能 5: 語速調整 (改為 5 個單選選項) ---
+    # --- 功能 5: 語速調整 ---
     speed_options = {
         "非常慢 (-50%)": -0.5,
         "慢 (-25%)": -0.25,
@@ -205,4 +235,3 @@ if uploaded_file is not None:
 
         except Exception as e:
             st.error(f"轉換過程發生錯誤: {str(e)}")
-            
