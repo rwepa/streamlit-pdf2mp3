@@ -32,14 +32,21 @@
 
 ## 步驟1. 新增 ＧitHub 專案檔案
 
-  + 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
-  
-  + Create a new repository 視窗 \ Repository name 方格輸入專案名稱: streamlit-pdf2mp3 \ Add README: 選取 ON \ 按最下方的 [Create repository] 按鈕
-  
-  + 最上方 [Add file] \ Upload files \ 上傳 requirements.txt 與 app.py 二個檔案
++ 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
++ Create a new repository 視窗 \ Repository name 方格輸入專案名稱: streamlit-pdf2mp3 \ Add README: 選取 ON \ 按最下方的 [Create repository] 按鈕
++ 最上方 [Add file] \ Upload files \ 上傳 requirements.txt 與 app.py 二個檔案
 
-**步驟2. 佈署至 Streamlit**
+## 步驟2. 佈署至 Streamlit
 
 + 連結 https://share.streamlit.io \ 選取適當的登入選項, 本例選取 "Continue with GitHub"
++ 選取右側 Create app, 參考以下附圖
++ 在 What would you like to do?視窗有3個選項 (1)Deploy a public app from GitHub (2)Deploy a public app from a template (3)Deploy a private app in Snowflake
++ 本例使用第1個 [Deploy a public app from GitHub] 
++ 在 Deploy an app 視窗依序輸入3個項目: Repository, Main file path, App URL, 最後按 Deploy 按鈕, 參考以下附圖.
 
+## 步驟3. 測試 Streamlit
 
++ 連接 https://rwepa-pdf2mp3.streamlit.app/
++ 上傳 PDF
++ 下載 TXT
++ 下載 MP3
