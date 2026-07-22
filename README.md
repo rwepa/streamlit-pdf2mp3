@@ -30,7 +30,7 @@
 
 # Streamlit佈署：
 
-1. 新增 ＧitHub 專案檔案
+**步驟1. 新增 ＧitHub 專案檔案**
 
   + 選取 ＧitHub 首頁 \ 選取上方 [Repositories] \ 按 [New] 按鈕
   
@@ -38,5 +38,5 @@
   
   + 最上方 [Add file] \ Upload files \ 上傳 requirements.txt 與 app.py 二個檔案
 
-2. 佈署至 Streamlit
+**步驟2. 佈署至 Streamlit**
 
