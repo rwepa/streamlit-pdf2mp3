@@ -39,10 +39,15 @@
 ## 步驟2. 佈署至 Streamlit
 
 + 連結 https://share.streamlit.io \ 選取適當的登入選項, 本例選取 "Continue with GitHub"
-+ 選取右側 Create app, 參考以下附圖
++ 選取右側 Create app, 參考以下附圖.
+
+![image](https://github.com/rwepa/streamlit-pdf2mp3/blob/main/images/streamlit_create_app.png)
+
 + 在 What would you like to do?視窗有3個選項 (1)Deploy a public app from GitHub (2)Deploy a public app from a template (3)Deploy a private app in Snowflake
 + 本例使用第1個 [Deploy a public app from GitHub] 
 + 在 Deploy an app 視窗依序輸入3個項目: Repository, Main file path, App URL, 最後按 Deploy 按鈕, 參考以下附圖.
+
+![image](https://github.com/rwepa/streamlit-pdf2mp3/blob/main/images/streamlit_deploy_an_app.png)
 
 ## 步驟3. 測試 Streamlit
 
