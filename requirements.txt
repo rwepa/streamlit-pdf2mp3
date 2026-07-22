@@ -2,4 +2,4 @@
 streamlit
 pypdf
 edge-tts
-langdetect
+langid
