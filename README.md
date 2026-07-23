@@ -51,7 +51,7 @@
 
 ## 步驟3. 測試 Streamlit
 
-+ 連接 https://rwepa-pdf2mp3.streamlit.app/
++ 系統展示: https://rwepa-pdf2mp3.streamlit.app/
 + 上傳 PDF: https://github.com/rwepa/streamlit-pdf2mp3/blob/main/biography-ming-chang-lee.pdf
 + 下載 TXT: https://github.com/rwepa/streamlit-pdf2mp3/blob/main/biography-ming-chang-lee.txt
 + 下載男生 MP3: https://github.com/rwepa/streamlit-pdf2mp3/blob/main/biography-ming-chang-lee-male.mp3
